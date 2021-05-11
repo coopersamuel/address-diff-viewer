@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useApi } from '../hooks'
+import { USER_IDS_ENDPOINT } from '../constants'
 import { Grid, Select, MenuItem, makeStyles, FormControl, InputLabel } from '@material-ui/core'
 
 const useStyles = makeStyles({
@@ -13,13 +14,12 @@ const useStyles = makeStyles({
  * rendering and layout of child components as well as initial data fetching
  */
 const AddressDiffViewer = () => {
-  // Fetch the userIds on mounted
-  const [{ data: userIds, isLoading, isError }, executeFetch] = useApi('http://localhost:5000/user_ids')
+  // Fetch the userIds on component mount
+  const [{ data: userIds, isLoading, isError }, executeFetch] = useApi(USER_IDS_ENDPOINT)
   const [selectedUser, setSelectedUser] = useState('')
+  const classes = useStyles()
 
   // TODO - Handle loading and error states
-
-  const classes = useStyles()
 
   return (
     <div>
@@ -45,4 +45,4 @@ const AddressDiffViewer = () => {
   )
 }
 
-export default AddressDiffViewer;
+export default AddressDiffViewer
