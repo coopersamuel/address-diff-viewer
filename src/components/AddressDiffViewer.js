@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useApi } from '../hooks'
-import { USER_IDS_ENDPOINT } from '../constants'
+import AddressInformationPanel from './AddressInformationPanel'
 import { Grid, Select, MenuItem, makeStyles, FormControl, InputLabel } from '@material-ui/core'
 
 const useStyles = makeStyles({
@@ -15,7 +15,7 @@ const useStyles = makeStyles({
  */
 const AddressDiffViewer = () => {
   // Fetch the userIds on component mount
-  const [{ data: userIds, isLoading, isError }, executeFetch] = useApi(USER_IDS_ENDPOINT)
+  const [{ data: userIds, isLoading, isError }, fetchUserIds] = useApi('/user_ids')
   const [selectedUser, setSelectedUser] = useState('')
   const classes = useStyles()
 
@@ -35,7 +35,7 @@ const AddressDiffViewer = () => {
       </Grid>
       <Grid container spacing={3}>
         <Grid item xs={6}>
-          hello
+          <AddressInformationPanel userId={selectedUser} />
         </Grid>
         <Grid item xs={6}>
           hello

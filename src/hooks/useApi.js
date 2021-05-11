@@ -1,6 +1,8 @@
 import { useState, useEffect, useReducer } from 'react'
 import axios from 'axios'
 
+const BASE_URL = 'http://localhost:5000'
+
 // Manage fetch related state (ie loading, error and data)
 const fetchReducer = (state, action) => {
   switch (action.type) {
@@ -31,12 +33,12 @@ const fetchReducer = (state, action) => {
 /**
  * Custom react hook for fetching data from an external api
  */
-const useApi = (initialUrl, initialData = []) => {
+const useApi = (initialUrl, requestOptions = {}) => {
   const [url, setUrl] = useState(initialUrl)
   const [state, dispatch] = useReducer(fetchReducer, {
     isLoading: false,
     isError: false,
-    data: initialData,
+    data: [],
   })
  
   useEffect(() => {
@@ -45,7 +47,10 @@ const useApi = (initialUrl, initialData = []) => {
       dispatch({ type: 'LOADING' })
  
       try {
-        const result = await axios(url)
+        const result = await axios(url, {
+          ...requestOptions,
+          baseURL: BASE_URL
+        })
         dispatch({ type: 'SUCCESS', payload: result.data })
       } catch (error) {
         dispatch({ type: 'FAILURE' })
