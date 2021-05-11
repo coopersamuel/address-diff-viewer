@@ -47,6 +47,7 @@ const useApi = (initialUrl, requestOptions = {}) => {
       dispatch({ type: 'LOADING' })
  
       try {
+        // Axios will default to GET unless otherwise specified in the requestOptions
         const result = await axios(url, {
           ...requestOptions,
           baseURL: BASE_URL
