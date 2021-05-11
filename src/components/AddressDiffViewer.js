@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useApi } from '../hooks'
 import AddressInformationPanel from './AddressInformationPanel'
-import { Grid, Select, MenuItem, makeStyles, FormControl, InputLabel } from '@material-ui/core'
+import { Grid, Select, Typography, Box, MenuItem, makeStyles, FormControl, InputLabel } from '@material-ui/core'
 
 const useStyles = makeStyles({
   idSelect: {
@@ -24,6 +24,13 @@ const AddressDiffViewer = () => {
   return (
     <div>
       <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Box mt="30px">
+            <Typography variant="h4">
+              Address Diff Viewer
+            </Typography>
+          </Box>
+        </Grid>
         <Grid item xs={4}>
           <FormControl variant="filled" className={classes.idSelect}>
             <InputLabel>Select a User ID</InputLabel>

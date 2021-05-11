@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import AddressInformationCard from './AddressInformationCard'
 import { useApi } from '../hooks'
-import { Grid, Card, Typography, CardContent, makeStyles } from '@material-ui/core'
+import { Grid, Card, Typography, CardContent, Box, CircularProgress, makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles({
   addressCardContainer: {
@@ -10,6 +10,9 @@ const useStyles = makeStyles({
   },
   addressInfoHeader: {
     paddingBottom: '10px'
+  },
+  loadingSpinner: {
+    fontSize: '20px'
   }
 })
 
@@ -23,6 +26,37 @@ const AddressInformationPanel = ({ userId }) => {
   }, [userId]) // Fetch new addresses whenever the userId prop changes
   const classes = useStyles()
 
+  const renderResults = (addresses, isLoading, isError) => {
+    // Handle rendering for loading, error and no results states
+    if (isLoading) {
+      return (
+        <Grid container justify="center">
+          <CircularProgress size={30} />
+        </Grid>
+      )
+    } else if (isError) {
+      return (
+        <Typography variant="subtitle2" color="error">
+          There was an error fetching addresses for this user
+        </Typography>
+      )
+    } else if (!addresses.length) {
+      return (
+        <Typography variant="subtitle2">
+          Select a User ID to view addresses
+        </Typography>
+      )
+    } else {
+      return addresses.map(address => {
+        return (
+          <Box key={address.id} mb="10px">
+            <AddressInformationCard address={address} />
+          </Box>
+        )
+      })
+    }
+  }
+
   return (
     <div>
       <Grid container spacing={3}>
@@ -32,7 +66,7 @@ const AddressInformationPanel = ({ userId }) => {
               <Typography variant="h5" className={classes.addressInfoHeader}>
                 Address Information
               </Typography>
-              {addresses.map(address => <AddressInformationCard address={address} />)}
+              {renderResults(addresses, isLoading, isError)}
             </CardContent>
           </Card>
         </Grid>

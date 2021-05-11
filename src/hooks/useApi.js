@@ -43,6 +43,8 @@ const useApi = (initialUrl, requestOptions = {}) => {
  
   useEffect(() => {
     const fetchData = async () => {
+      if (!url) return
+
       // Set loading flag when api call is initialized
       dispatch({ type: 'LOADING' })
  

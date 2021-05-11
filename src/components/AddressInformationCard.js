@@ -16,6 +16,9 @@ const AddressInformationCard = ({ address }) => {
   const [expanded, setExpanded] = useState(false)
   const handleExpandClick = () => setExpanded(!expanded)
 
+  // Don't display deleted addresses
+  if (deleted_at) return <div />
+
   return (
     <Grid item xs={10}>
       <Card key={id}>
@@ -46,12 +49,6 @@ const AddressInformationCard = ({ address }) => {
               <Typography color="textSecondary" className={classes.smallRightPadding}>Updated At:</Typography>
               <Typography>{updated_at}</Typography>  
             </Grid>
-            {deleted_at && 
-              <Grid container alignItem="center">
-                <Typography color="textSecondary" className={classes.smallRightPadding}>Deleted At:</Typography>
-                <Typography>{deleted_at}</Typography>  
-              </Grid>
-            }
           </Collapse>
         </CardContent>
         <CardActions>
