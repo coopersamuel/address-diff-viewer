@@ -1,12 +1,19 @@
+import { useState } from 'react'
 import { useApi } from '../../hooks'
-import { Button } from '@material-ui/core';
+import { Select, MenuItem } from '@material-ui/core';
 
 const AddressDiffViewer = () => {
-  const [{ data, isLoading, isError }, executeFetch] = useApi('https://cataas.com/cat')
+  // Fetch the userIds on mounted
+  const [{ data: userIds, isLoading, isError }, executeFetch] = useApi('http://localhost:5000/user_ids')
+  const [selectedUser, setSelectedUser] = useState('')
+
+  // TODO - Handle loading and error states
 
   return (
     <div className="App">
-      <Button color="primary" onClick={executeFetch}>Get a cat!</Button>
+      <Select value={selectedUser} onChange={setSelectedUser}>
+        {userIds.map(userId => <MenuItem key={userId} value={userId}>{userId}</MenuItem>)}
+      </Select>
     </div>
   )
 }
