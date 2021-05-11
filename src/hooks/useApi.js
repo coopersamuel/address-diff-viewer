@@ -45,22 +45,17 @@ const useApi = (initialUrl, initialData = []) => {
       dispatch({ type: 'LOADING' })
  
       try {
-        console.log('success')
         const result = await axios(url)
         dispatch({ type: 'SUCCESS', payload: result.data })
       } catch (error) {
-        // TODO - Send error message as payload
-        console.log(error)
         dispatch({ type: 'FAILURE' })
       }
     }
  
     fetchData()
   }, [url])
-
-  console.log(state)
  
-  // Expose the current state as well as setUrl, which is used to execute a new fetch
+  // Expose the current state as well as setUrl, which can be used to execute a new fetch
   return [state, setUrl]
 }
 

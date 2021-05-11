@@ -1,7 +1,12 @@
-import AddressDiffViewer from './components/AddressDiffViewer/AddressDiffViewer'
+import AddressDiffViewer from './components/AddressDiffViewer'
+import { Container } from '@material-ui/core';
 
 function App() {
-  return <AddressDiffViewer />
+  return (
+    <Container maxWidth="lg">
+      <AddressDiffViewer />
+    </Container>
+  )
 }
 
 export default App;
