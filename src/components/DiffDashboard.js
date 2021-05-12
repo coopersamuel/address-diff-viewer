@@ -48,6 +48,11 @@ const DiffDashboard = () => {
     )
   }
 
+  // In the case where an address has been deleted, our api sets a deleted_at flag. 
+  // Simulating the deleted address with an empty object
+  const leftAddressDeleted = leftAddress && leftAddress.deleted_at
+  const rightAddressDeleted = rightAddress && rightAddress.deleted_at
+
   return (
     <Box mt="20px">
       <Grid container spacing={3}>
@@ -63,7 +68,10 @@ const DiffDashboard = () => {
             </Box>
           </Grid>
         ) : (
-          <DiffViewer leftAddress={leftAddress} rightAddress={rightAddress} />
+          <DiffViewer 
+            leftAddress={leftAddressDeleted ? {} : leftAddress} 
+            rightAddress={rightAddressDeleted ? {} : rightAddress} 
+          />
         )}
       </Grid>
     </Box>
