@@ -20,7 +20,7 @@ const useStyles = makeStyles({
 
 const generateEventEndpoint = addressId => addressId ? `/addresses/${addressId}/events` : ''
 
-const EventPanel = ({ addressId, selectedEvents, onEventClick }) => {
+const EventPanel = ({ addressId, selectedEvents, onEventClick, onCompareClick }) => {
   const [{ data: events, isLoading, isError }, fetchEvents] = useApi(generateEventEndpoint(addressId))
   useEffect(() => {
     if (!addressId) return

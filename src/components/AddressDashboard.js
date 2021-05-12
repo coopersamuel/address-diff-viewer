@@ -11,10 +11,10 @@ const useStyles = makeStyles({
 })
 
 /**
- * AddressDiffViewer is the parent component that handles
- * rendering and layout of child components as well as initial data fetching
+ * AddressDashboard is the parent component that handles state
+ * for the address and event selection portion of the app
  */
-const AddressDiffViewer = () => {
+const AddressDashboard = () => {
   // Fetch the userIds on component mount
   const [{ data: userIds, isLoading, isError }, fetchUserIds] = useApi('/user_ids')
   const [selectedUser, setSelectedUser] = useState('')
@@ -24,6 +24,7 @@ const AddressDiffViewer = () => {
 
   // TODO - Handle loading and error states
   // TODO - Clear events on userId change
+  // TODO - Handle all the console warnings
 
   const handleUserIdSelect = userId => {
     setSelectedUser(userId)
@@ -80,4 +81,4 @@ const AddressDiffViewer = () => {
   )
 }
 
-export default AddressDiffViewer
+export default AddressDashboard

@@ -16,7 +16,7 @@ const EventCard = ({ data: event, selected }) => {
 
   return (
     <Grid item xs={12}>
-      <Card key={id}>
+      <Card>
         <CardContent>
           <Grid container alignItems="center" justify="space-between">
             <Grid container item alignItems="center" xs={6}>
