@@ -1,16 +1,11 @@
 import { useState } from 'react'
 import { Switch, Route, useHistory } from 'react-router-dom'
 import { useApi } from '../hooks'
+import SelectDropdown from './SelectDropdown'
 import AddressInformationPanel from './AddressInformationPanel'
 import EventPanel from './EventPanel'
 import DiffDashboard from './DiffDashboard'
-import { Grid, Select, Typography, Box, MenuItem, makeStyles, FormControl, InputLabel } from '@material-ui/core'
-
-const useStyles = makeStyles({
-  idSelect: {
-    width: '100%'
-  }
-})
+import { Grid, Typography, Box } from '@material-ui/core'
 
 /**
  * AddressDashboard is the parent component that handles state
@@ -23,7 +18,6 @@ const AddressDashboard = () => {
   const [selectedAddress, setSelectedAddress] = useState('')
   const [selectedEvents, setSelectedEvents] = useState([])
   const history = useHistory()
-  const classes = useStyles()
 
   const handleUserIdSelect = userId => {
     // Clear the user as well as selected address and events, if applicable
@@ -77,12 +71,12 @@ const AddressDashboard = () => {
           <Grid container spacing={3}>
             <Grid container item xs={12}>
               <Grid item xs={4}>
-                <FormControl variant="filled" className={classes.idSelect}>
-                  <InputLabel>Select a User ID</InputLabel>
-                  <Select value={selectedUser} onChange={event => handleUserIdSelect(event.target.value)}>
-                    {userIds.map(userId => <MenuItem key={userId} value={userId}>{userId}</MenuItem>)}
-                  </Select>
-                </FormControl>
+                <SelectDropdown 
+                  label="Select a User ID" 
+                  value={selectedUser} 
+                  options={userIds}
+                  onInputChange={handleUserIdSelect} 
+                />
               </Grid>
             </Grid>
             <Grid item xs={6}>
