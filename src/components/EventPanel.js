@@ -16,7 +16,7 @@ const useStyles = makeStyles({
 
 const generateEventEndpoint = addressId => addressId ? `/addresses/${addressId}/events` : ''
 
-const EventPanel = ({ addressId, onEventClick }) => {
+const EventPanel = ({ addressId, selectedEvents, onEventClick }) => {
   const [{ data: events, isLoading, isError }, fetchEvents] = useApi(generateEventEndpoint(addressId))
   useEffect(() => {
     if (!addressId) return
@@ -30,6 +30,7 @@ const EventPanel = ({ addressId, onEventClick }) => {
     isError,
     errorText: 'There was an error fetching events for this address',
     noResultsText: 'Select an address to view related events',
+    selected: selectedEvents,
     resultComponent: <EventCard />,
     onResultClick: eventId => onEventClick(eventId)
   }

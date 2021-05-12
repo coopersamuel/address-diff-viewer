@@ -10,8 +10,9 @@ const BlueCheckbox = withStyles({
   checked: {},
 })((props) => <Checkbox color="default" {...props} />);
 
-const EventCard = ({ data: event, checked }) => {
+const EventCard = ({ data: event, selected }) => {
   const { id, type, created_at } = event
+  const checked = selected.includes(id)
 
   return (
     <Grid item xs={12}>
@@ -19,7 +20,7 @@ const EventCard = ({ data: event, checked }) => {
         <CardContent>
           <Grid container alignItems="center" justify="space-between">
             <Grid container item alignItems="center" xs={6}>
-              <BlueCheckbox checked={checked} />
+              <BlueCheckbox disabled={selected.length >= 2} checked={checked} />
               <Typography color="textSecondary">{type}</Typography>
             </Grid>
             <Grid item>

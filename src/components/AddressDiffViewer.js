@@ -19,11 +19,22 @@ const AddressDiffViewer = () => {
   const [{ data: userIds, isLoading, isError }, fetchUserIds] = useApi('/user_ids')
   const [selectedUser, setSelectedUser] = useState('')
   const [selectedAddress, setSelectedAddress] = useState('')
+  const [selectedEvents, setSelectedEvents] = useState([])
   const classes = useStyles()
 
   // TODO - Handle loading and error states
+  // TODO - Clear events on userId change
 
-  const handleEventClick = e => console.log(e)
+  const handleEventClick = eventId => {
+    // First, check if this event is already selected, if so, deselect
+    if (selectedEvents.includes(eventId)) {
+      const filteredEvents = selectedEvents.filter(event => event !== eventId)
+      setSelectedEvents(filteredEvents)
+    } else if (selectedEvents.length < 2) {
+      // There cannot be more than 2 events selected at a time
+      setSelectedEvents([...selectedEvents, eventId])
+    }
+  }
 
   return (
     <div>
@@ -49,7 +60,7 @@ const AddressDiffViewer = () => {
           <AddressInformationPanel userId={selectedUser} selectedAddress={selectedAddress} onAddressClick={setSelectedAddress} />
         </Grid>
         <Grid item xs={6}>
-          <EventPanel addressId={selectedAddress} onEventClick={handleEventClick} />
+          <EventPanel addressId={selectedAddress} selectedEvents={selectedEvents} onEventClick={handleEventClick} />
         </Grid>
       </Grid>
     </div>
