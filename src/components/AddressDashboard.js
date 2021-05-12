@@ -3,7 +3,7 @@ import { Switch, Route, useHistory } from 'react-router-dom'
 import { useApi } from '../hooks'
 import AddressInformationPanel from './AddressInformationPanel'
 import EventPanel from './EventPanel'
-import DiffViewer from './DiffViewer'
+import DiffDashboard from './DiffDashboard'
 import { Grid, Select, Typography, Box, MenuItem, makeStyles, FormControl, InputLabel } from '@material-ui/core'
 
 const useStyles = makeStyles({
@@ -30,21 +30,21 @@ const AddressDashboard = () => {
   // TODO - Handle all the console warnings
 
   const handleUserIdSelect = userId => {
+    // Clear the user as well as selected address and events, if applicable
     setSelectedUser(userId)
-    // Also clear selected address and events, if applicable
     setSelectedAddress('')
     setSelectedEvents([])
   }
 
   const handleAddressClick = addressId => {
+    // Clear the address as well as any selected events
     setSelectedAddress(addressId)
-    // Also clear any selected events
     setSelectedEvents([])
   }
 
   const handleEventClick = addressEvent => {
     const { id: eventId } = addressEvent
-    
+
     // First, check if this event is already selected, if so, deselect
     if (selectedEvents.find(event => event.id === eventId)) {
       const filteredEvents = selectedEvents.filter(event => event.id !== eventId)
@@ -75,7 +75,7 @@ const AddressDashboard = () => {
       </Grid>
       <Switch>
         <Route path="/diff">
-          <DiffViewer />
+          <DiffDashboard />
         </Route>
         <Route path="/">
           <Grid container spacing={3}>

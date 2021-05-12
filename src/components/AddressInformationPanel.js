@@ -36,7 +36,7 @@ const AddressInformationPanel = ({ userId, selectedAddress, onAddressClick }) =>
   }
 
   return (
-    <div>
+    <>
       <Grid container spacing={3}>
         <Grid container item xs={12}>
           <Card className={classes.addressCardContainer}>
@@ -49,7 +49,7 @@ const AddressInformationPanel = ({ userId, selectedAddress, onAddressClick }) =>
           </Card>
         </Grid>
       </Grid>
-    </div>
+    </>
   )
 }
 
