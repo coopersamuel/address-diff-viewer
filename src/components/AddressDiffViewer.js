@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useApi } from '../hooks'
 import AddressInformationPanel from './AddressInformationPanel'
+import EventPanel from './EventPanel'
 import { Grid, Select, Typography, Box, MenuItem, makeStyles, FormControl, InputLabel } from '@material-ui/core'
 
 const useStyles = makeStyles({
@@ -17,6 +18,7 @@ const AddressDiffViewer = () => {
   // Fetch the userIds on component mount
   const [{ data: userIds, isLoading, isError }, fetchUserIds] = useApi('/user_ids')
   const [selectedUser, setSelectedUser] = useState('')
+  const [selectedAddress, setSelectedAddress] = useState('')
   const classes = useStyles()
 
   // TODO - Handle loading and error states
@@ -42,10 +44,10 @@ const AddressDiffViewer = () => {
       </Grid>
       <Grid container spacing={3}>
         <Grid item xs={6}>
-          <AddressInformationPanel userId={selectedUser} />
+          <AddressInformationPanel userId={selectedUser} onAddressClick={setSelectedAddress} />
         </Grid>
         <Grid item xs={6}>
-          hello
+          <EventPanel addressId={selectedAddress} />
         </Grid>
       </Grid>
     </div>

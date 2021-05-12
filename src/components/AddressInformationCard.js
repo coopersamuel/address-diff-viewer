@@ -10,10 +10,11 @@ const useStyles = makeStyles({
   }
 })
 
-const AddressInformationCard = ({ address }) => {
-  const { id, user_id, street_one, street_two, city, state_id, zip_code, country_id, created_at, updated_at, deleted_at } = address
-  const classes = useStyles()
+const AddressInformationCard = ({ data: address }) => {
   const [expanded, setExpanded] = useState(false)
+  const classes = useStyles()
+
+  const { id, user_id, street_one, street_two, city, state_id, zip_code, country_id, created_at, updated_at, deleted_at } = address
   const handleExpandClick = () => setExpanded(!expanded)
 
   // Don't display deleted addresses

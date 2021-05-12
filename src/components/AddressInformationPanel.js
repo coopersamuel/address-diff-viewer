@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
 import AddressInformationCard from './AddressInformationCard'
+import ResultsList from './ResultsList'
 import { useApi } from '../hooks'
-import { Grid, Card, Typography, CardContent, Box, CircularProgress, makeStyles } from '@material-ui/core'
+import { Grid, Card, Typography, CardContent, makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles({
   addressCardContainer: {
@@ -18,7 +19,7 @@ const useStyles = makeStyles({
 
 const generateAddressEndpoint = userId => userId ? `/users/${userId}/addresses` : ''
 
-const AddressInformationPanel = ({ userId }) => {
+const AddressInformationPanel = ({ userId, onAddressClick }) => {
   const [{ data: addresses, isLoading, isError }, fetchAddresses] = useApi(generateAddressEndpoint(userId))
   useEffect(() => {
     if (!userId) return
@@ -26,35 +27,14 @@ const AddressInformationPanel = ({ userId }) => {
   }, [userId]) // Fetch new addresses whenever the userId prop changes
   const classes = useStyles()
 
-  const renderResults = (addresses, isLoading, isError) => {
-    // Handle rendering for loading, error and no results states
-    if (isLoading) {
-      return (
-        <Grid container justify="center">
-          <CircularProgress size={30} />
-        </Grid>
-      )
-    } else if (isError) {
-      return (
-        <Typography variant="subtitle2" color="error">
-          There was an error fetching addresses for this user
-        </Typography>
-      )
-    } else if (!addresses.length) {
-      return (
-        <Typography variant="subtitle2">
-          Select a User ID to view addresses
-        </Typography>
-      )
-    } else {
-      return addresses.map(address => {
-        return (
-          <Box key={address.id} mb="10px">
-            <AddressInformationCard address={address} />
-          </Box>
-        )
-      })
-    }
+  const resultsListProps = {
+    results: addresses,
+    isLoading,
+    isError,
+    errorText: 'There was an error fetching addresses for this user',
+    noResultsText: 'Select a User ID to view addresses',
+    resultComponent: <AddressInformationCard />,
+    onResultClick: addressId => onAddressClick(addressId)
   }
 
   return (
@@ -66,7 +46,7 @@ const AddressInformationPanel = ({ userId }) => {
               <Typography variant="h5" className={classes.addressInfoHeader}>
                 Address Information
               </Typography>
-              {renderResults(addresses, isLoading, isError)}
+              <ResultsList { ...resultsListProps } />
             </CardContent>
           </Card>
         </Grid>
