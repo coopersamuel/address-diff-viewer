@@ -7,12 +7,19 @@ const useStyles = makeStyles({
   },
   smallRightPadding: {
     paddingRight: '10px'
+  },
+  selectedAddress: {
+    border: ({ address, selected }) => {
+      if (selected === address.id) {
+        return '2px solid #528ef6'
+      } else return ''
+    },
   }
 })
 
-const AddressInformationCard = ({ data: address }) => {
+const AddressInformationCard = ({ data: address, selected }) => {
   const [expanded, setExpanded] = useState(false)
-  const classes = useStyles()
+  const classes = useStyles({ address, selected })
 
   const { id, user_id, street_one, street_two, city, state_id, zip_code, country_id, created_at, updated_at, deleted_at } = address
   const handleExpandClick = event => {
@@ -25,7 +32,7 @@ const AddressInformationCard = ({ data: address }) => {
 
   return (
     <Grid item xs={10}>
-      <Card key={id}>
+      <Card key={id} className={classes.selectedAddress}>
         <CardContent>
           <Typography color="textSecondary">
             {street_one}

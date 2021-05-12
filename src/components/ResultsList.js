@@ -11,6 +11,7 @@ const ResultsList = ({
   isError, 
   errorText,
   noResultsText,
+  selected,
   resultComponent,
   onResultClick
 }) => {
@@ -35,11 +36,12 @@ const ResultsList = ({
         </Typography>
       )
     } else {
-      // Render a list of 
+      // Render a list of results, whatever those may be (AddressInformationCards or EventCards)
+      // Using cloneElement to create the given component and pass in the result as props
       return results.map(result => {
         return (
           <Box key={result.id} mb="10px" onClick={() => onResultClick(result.id)}>
-            {cloneElement(resultComponent, { data: result })}
+            {cloneElement(resultComponent, { data: result, selected })}
           </Box>
         )
       })

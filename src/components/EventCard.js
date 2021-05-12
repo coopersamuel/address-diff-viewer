@@ -1,4 +1,14 @@
-import { Checkbox, Grid, Card, Typography, CardContent } from '@material-ui/core'
+import { Checkbox, Grid, Card, Typography, CardContent, withStyles } from '@material-ui/core'
+
+const BlueCheckbox = withStyles({
+  root: {
+    color: '#528ef6',
+    '&$checked': {
+      color: '#528ef6',
+    },
+  },
+  checked: {},
+})((props) => <Checkbox color="default" {...props} />);
 
 const EventCard = ({ data: event, checked }) => {
   const { id, type, created_at } = event
@@ -9,7 +19,7 @@ const EventCard = ({ data: event, checked }) => {
         <CardContent>
           <Grid container alignItems="center" justify="space-between">
             <Grid container item alignItems="center" xs={6}>
-              <Checkbox checked={checked} />
+              <BlueCheckbox checked={checked} />
               <Typography color="textSecondary">{type}</Typography>
             </Grid>
             <Grid item>

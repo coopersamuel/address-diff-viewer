@@ -46,7 +46,7 @@ const AddressDiffViewer = () => {
       </Grid>
       <Grid container spacing={3}>
         <Grid item xs={6}>
-          <AddressInformationPanel userId={selectedUser} onAddressClick={setSelectedAddress} />
+          <AddressInformationPanel userId={selectedUser} selectedAddress={selectedAddress} onAddressClick={setSelectedAddress} />
         </Grid>
         <Grid item xs={6}>
           <EventPanel addressId={selectedAddress} onEventClick={handleEventClick} />

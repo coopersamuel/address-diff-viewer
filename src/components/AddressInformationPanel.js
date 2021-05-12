@@ -16,7 +16,7 @@ const useStyles = makeStyles({
 
 const generateAddressEndpoint = userId => userId ? `/users/${userId}/addresses` : ''
 
-const AddressInformationPanel = ({ userId, onAddressClick }) => {
+const AddressInformationPanel = ({ userId, selectedAddress, onAddressClick }) => {
   const [{ data: addresses, isLoading, isError }, fetchAddresses] = useApi(generateAddressEndpoint(userId))
   useEffect(() => {
     if (!userId) return
@@ -30,6 +30,7 @@ const AddressInformationPanel = ({ userId, onAddressClick }) => {
     isError,
     errorText: 'There was an error fetching addresses for this user',
     noResultsText: 'Select a User ID to view addresses',
+    selected: selectedAddress,
     resultComponent: <AddressInformationCard />,
     onResultClick: addressId => onAddressClick(addressId)
   }
