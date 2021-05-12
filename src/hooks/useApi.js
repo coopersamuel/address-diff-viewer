@@ -6,6 +6,12 @@ const BASE_URL = 'http://localhost:5000'
 // Manage fetch related state (ie loading, error and data)
 const fetchReducer = (state, action) => {
   switch (action.type) {
+    case 'RESET':
+      return {
+        isLoading: false,
+        isError: false,
+        data: action.payload
+      }
     case 'LOADING':
       return {
         ...state,
@@ -38,8 +44,10 @@ const useApi = (initialUrl, initialData = [], requestOptions = {}) => {
   const [state, dispatch] = useReducer(fetchReducer, {
     isLoading: false,
     isError: false,
-    data: initialData,
+    data: initialData
   })
+
+  const clearData = () => dispatch({ type: 'RESET', payload: initialData })
  
   useEffect(() => {
     const fetchData = async () => {
@@ -63,8 +71,8 @@ const useApi = (initialUrl, initialData = [], requestOptions = {}) => {
     fetchData()
   }, [url])
  
-  // Expose the current state as well as setUrl, which can be used to execute a new fetch
-  return [state, setUrl]
+  // Expose the current state, setUrl (which can be used to execute a new fetch) and clearData
+  return [state, setUrl, clearData]
 }
 
 export default useApi

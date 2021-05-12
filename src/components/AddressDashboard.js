@@ -18,16 +18,12 @@ const useStyles = makeStyles({
  */
 const AddressDashboard = () => {
   // Fetch the userIds on component mount
-  const [{ data: userIds, isLoading, isError }, fetchUserIds] = useApi('/user_ids')
+  const [{ data: userIds, isLoading, isError }, _refetchUserIds] = useApi('/user_ids')
   const [selectedUser, setSelectedUser] = useState('')
   const [selectedAddress, setSelectedAddress] = useState('')
   const [selectedEvents, setSelectedEvents] = useState([])
   const history = useHistory()
   const classes = useStyles()
-
-  // TODO - Handle loading and error states
-  // TODO - Clear events on userId change
-  // TODO - Handle all the console warnings
 
   const handleUserIdSelect = userId => {
     // Clear the user as well as selected address and events, if applicable
@@ -93,7 +89,7 @@ const AddressDashboard = () => {
               <AddressInformationPanel userId={selectedUser} selectedAddress={selectedAddress} onAddressClick={handleAddressClick} />
             </Grid>
             <Grid item xs={6}>
-              <EventPanel addressId={selectedAddress} selectedEvents={selectedEvents} onEventClick={handleEventClick} onCompareClick={handleCompareClick} />
+              <EventPanel userId={selectedUser} addressId={selectedAddress} selectedEvents={selectedEvents} onEventClick={handleEventClick} onCompareClick={handleCompareClick} />
             </Grid>
           </Grid>
         </Route>

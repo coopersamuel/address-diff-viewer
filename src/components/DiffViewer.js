@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import { Grid, Card, Typography, CardContent, makeStyles } from '@material-ui/core'
 
 // Always execute an address diff in this order
@@ -31,18 +32,18 @@ const DiffViewer = ({ leftAddress, rightAddress }) => {
                 {ADDRESS_KEYS.map(key => {
                   const hasChange = leftAddress[key] !== rightAddress[key]
                   return (
-                    <>
+                    <Fragment key={key}>
                       <Grid item xs={6}>
-                        <Typography className={hasChange && classes.outdatedDiffLine}>
+                        <Typography className={hasChange ? classes.outdatedDiffLine : ''}>
                           {leftAddress[key]}
                         </Typography>
                       </Grid>
                       <Grid item xs={6}>
-                        <Typography className={hasChange && classes.newDiffLine}>
+                        <Typography className={hasChange ? classes.newDiffLine : ''}>
                           {rightAddress[key]}
                         </Typography>
                       </Grid>
-                    </>
+                    </Fragment>
                   )
                 })}
               </Grid>

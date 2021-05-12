@@ -20,12 +20,17 @@ const useStyles = makeStyles({
 
 const generateEventEndpoint = addressId => addressId ? `/addresses/${addressId}/events` : ''
 
-const EventPanel = ({ addressId, selectedEvents, onEventClick, onCompareClick }) => {
-  const [{ data: events, isLoading, isError }, fetchEvents] = useApi(generateEventEndpoint(addressId))
+const EventPanel = ({ userId, addressId, selectedEvents, onEventClick, onCompareClick }) => {
+  const [{ data: events, isLoading, isError }, fetchEvents, clearEvents] = useApi(generateEventEndpoint(addressId))
   useEffect(() => {
-    if (!addressId) return
+    if (!addressId) {
+      // If the userId changes and there is no addressId, clear any events
+      clearEvents()
+      return
+    }
+
     fetchEvents(generateEventEndpoint(addressId)) 
-  }, [addressId]) // Fetch new events whenever the addressId prop changes
+  }, [userId, addressId]) // Fetch new events whenever the addressId prop changes
   const classes = useStyles()
 
   const resultsListProps = {
