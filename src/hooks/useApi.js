@@ -33,12 +33,12 @@ const fetchReducer = (state, action) => {
 /**
  * Custom react hook for fetching data from an external api
  */
-const useApi = (initialUrl, requestOptions = {}) => {
+const useApi = (initialUrl, initialData = [], requestOptions = {}) => {
   const [url, setUrl] = useState(initialUrl)
   const [state, dispatch] = useReducer(fetchReducer, {
     isLoading: false,
     isError: false,
-    data: [],
+    data: initialData,
   })
  
   useEffect(() => {

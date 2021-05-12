@@ -1,19 +1,12 @@
 import { useHistory, useLocation } from 'react-router-dom'
 import { sortBy } from 'lodash'
 import { useApi } from '../hooks'
-import { Button, Box, Grid, Card, Typography, CardContent, CircularProgress, makeStyles } from '@material-ui/core'
-
-const useStyles = makeStyles({
-  diffPaneContainer: {
-    backgroundColor: '#e7e7e7',
-    width: '100%'
-  }
-})
+import DiffViewer from './DiffViewer'
+import { Button, Box, Grid, Typography, CircularProgress } from '@material-ui/core'
 
 const DiffDashboard = () => {
   const history = useHistory()
   const location = useLocation()
-  const classes = useStyles()
 
   // Sort events by the created_at timestamp to ensure that the older event is always on the left pane of the viewer
   const sortedEvents = sortBy(location.state.selectedEvents, event => new Date(event.created_at))
@@ -23,12 +16,12 @@ const DiffDashboard = () => {
     data: leftAddress, 
     isLoading: leftAddressLoading, 
     isError: leftAddressError 
-  }, fetchLeftAddress] = useApi(leftEvent.url)
+  }, _refetchLeftAddress] = useApi(leftEvent.url, null)
   const [{ 
     data: rightAddress, 
     isLoading: rightAddressLoading, 
     isError: rightAddressError 
-  }, fetchRightAddress] = useApi(rightEvent.url)
+  }, _refetchRightAddress] = useApi(rightEvent.url, null)
 
   const isLoading = leftAddressLoading || rightAddressLoading
 
@@ -70,30 +63,7 @@ const DiffDashboard = () => {
             </Box>
           </Grid>
         ) : (
-          <>
-            <Grid item xs={6}>
-              <Grid container spacing={3}>
-                <Grid container item xs={12}>
-                  <Card className={classes.diffPaneContainer}>
-                    <CardContent>
-
-                    </CardContent>
-                  </Card>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xs={6}>
-              <Grid container spacing={3}>
-                <Grid container item xs={12}>
-                  <Card className={classes.diffPaneContainer}>
-                    <CardContent>
-
-                    </CardContent>
-                  </Card>
-                </Grid>
-              </Grid>
-            </Grid>
-          </>
+          <DiffViewer leftAddress={leftAddress} rightAddress={rightAddress} />
         )}
       </Grid>
     </Box>
