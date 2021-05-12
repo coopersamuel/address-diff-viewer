@@ -36,7 +36,7 @@ const EventPanel = ({ addressId, selectedEvents, onEventClick, onCompareClick })
     noResultsText: 'Select an address to view related events',
     selected: selectedEvents,
     resultComponent: <EventCard />,
-    onResultClick: eventId => onEventClick(eventId)
+    onResultClick: event => onEventClick(event)
   }
 
   return (
@@ -55,7 +55,7 @@ const EventPanel = ({ addressId, selectedEvents, onEventClick, onCompareClick })
                     </Box>
                   </Grid>
                   <Grid item>
-                    <Button variant="contained" color="primary" disabled={selectedEvents.length !== 2}>
+                    <Button onClick={onCompareClick} variant="contained" color="primary" disabled={selectedEvents.length !== 2}>
                       Compare
                     </Button>
                   </Grid>

@@ -12,7 +12,7 @@ const BlueCheckbox = withStyles({
 
 const EventCard = ({ data: event, selected }) => {
   const { id, type, created_at } = event
-  const checked = selected.includes(id)
+  const checked = !!selected.find(event => event.id === id)
 
   return (
     <Grid item xs={12}>

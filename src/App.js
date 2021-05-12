@@ -1,10 +1,7 @@
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route
+  BrowserRouter as Router
 } from 'react-router-dom'
 import AddressDashboard from './components/AddressDashboard'
-import DiffViewer from './components/DiffViewer'
 import { Container } from '@material-ui/core';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
@@ -25,14 +22,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Container maxWidth="lg">
         <Router>
-          <Switch>
-            <Route path="/diff">
-              <DiffViewer />
-            </Route>
-            <Route path="/">
-              <AddressDashboard />
-            </Route>
-          </Switch>
+          <AddressDashboard />
         </Router>
       </Container>
     </ThemeProvider>

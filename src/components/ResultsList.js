@@ -40,7 +40,7 @@ const ResultsList = ({
       // Using cloneElement to create the given component and pass in the result as props
       return results.map(result => {
         return (
-          <Box key={result.id} mb="10px" onClick={() => onResultClick(result.id)}>
+          <Box key={result.id} mb="10px" onClick={() => onResultClick(result)}>
             {cloneElement(resultComponent, { data: result, selected })}
           </Box>
         )

@@ -32,7 +32,7 @@ const AddressInformationPanel = ({ userId, selectedAddress, onAddressClick }) =>
     noResultsText: 'Select a User ID to view addresses',
     selected: selectedAddress,
     resultComponent: <AddressInformationCard />,
-    onResultClick: addressId => onAddressClick(addressId)
+    onResultClick: ({ id }) => onAddressClick(id)
   }
 
   return (
