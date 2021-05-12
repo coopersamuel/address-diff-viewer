@@ -23,6 +23,8 @@ const AddressDiffViewer = () => {
 
   // TODO - Handle loading and error states
 
+  const handleEventClick = e => console.log(e)
+
   return (
     <div>
       <Grid container spacing={3}>
@@ -47,7 +49,7 @@ const AddressDiffViewer = () => {
           <AddressInformationPanel userId={selectedUser} onAddressClick={setSelectedAddress} />
         </Grid>
         <Grid item xs={6}>
-          <EventPanel addressId={selectedAddress} />
+          <EventPanel addressId={selectedAddress} onEventClick={handleEventClick} />
         </Grid>
       </Grid>
     </div>

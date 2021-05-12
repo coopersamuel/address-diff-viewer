@@ -15,7 +15,10 @@ const AddressInformationCard = ({ data: address }) => {
   const classes = useStyles()
 
   const { id, user_id, street_one, street_two, city, state_id, zip_code, country_id, created_at, updated_at, deleted_at } = address
-  const handleExpandClick = () => setExpanded(!expanded)
+  const handleExpandClick = event => {
+    event.stopPropagation()
+    setExpanded(!expanded)
+  }
 
   // Don't display deleted addresses
   if (deleted_at) return <div />
@@ -34,19 +37,19 @@ const AddressInformationCard = ({ data: address }) => {
             {city}, {state_id} {zip_code} {country_id}
           </Typography>
           <Collapse className={classes.expandableContent} in={expanded} timeout="auto" unmountOnExit>
-            <Grid container alignItem="center">
+            <Grid container alignItems="center">
               <Typography color="textSecondary" className={classes.smallRightPadding}>User ID:</Typography>
               <Typography>{user_id}</Typography>  
             </Grid>
-            <Grid container alignItem="center">
+            <Grid container alignItems="center">
               <Typography color="textSecondary" className={classes.smallRightPadding}>Address ID:</Typography>
               <Typography>{id}</Typography>  
             </Grid>
-            <Grid container alignItem="center">
+            <Grid container alignItems="center">
               <Typography color="textSecondary" className={classes.smallRightPadding}>Created At:</Typography>
               <Typography>{created_at}</Typography>  
             </Grid>
-            <Grid container alignItem="center">
+            <Grid container alignItems="center">
               <Typography color="textSecondary" className={classes.smallRightPadding}>Updated At:</Typography>
               <Typography>{updated_at}</Typography>  
             </Grid>

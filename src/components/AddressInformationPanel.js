@@ -11,9 +11,6 @@ const useStyles = makeStyles({
   },
   addressInfoHeader: {
     paddingBottom: '10px'
-  },
-  loadingSpinner: {
-    fontSize: '20px'
   }
 })
 
