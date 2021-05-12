@@ -10,7 +10,7 @@ const useStyles = makeStyles({
     width: '100%'
   },
   addressInfoHeader: {
-    paddingBottom: '10px'
+    paddingBottom: '20px'
   }
 })
 

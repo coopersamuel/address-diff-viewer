@@ -25,6 +25,19 @@ const AddressDiffViewer = () => {
   // TODO - Handle loading and error states
   // TODO - Clear events on userId change
 
+  const handleUserIdSelect = userId => {
+    setSelectedUser(userId)
+    // Also clear selected address and events, if applicable
+    setSelectedAddress('')
+    setSelectedEvents([])
+  }
+
+  const handleAddressClick = addressId => {
+    setSelectedAddress(addressId)
+    // Also clear any selected events
+    setSelectedEvents([])
+  }
+
   const handleEventClick = eventId => {
     // First, check if this event is already selected, if so, deselect
     if (selectedEvents.includes(eventId)) {
@@ -49,7 +62,7 @@ const AddressDiffViewer = () => {
         <Grid item xs={4}>
           <FormControl variant="filled" className={classes.idSelect}>
             <InputLabel>Select a User ID</InputLabel>
-            <Select value={selectedUser} onChange={event => setSelectedUser(event.target.value)}>
+            <Select value={selectedUser} onChange={event => handleUserIdSelect(event.target.value)}>
               {userIds.map(userId => <MenuItem key={userId} value={userId}>{userId}</MenuItem>)}
             </Select>
           </FormControl>
@@ -57,7 +70,7 @@ const AddressDiffViewer = () => {
       </Grid>
       <Grid container spacing={3}>
         <Grid item xs={6}>
-          <AddressInformationPanel userId={selectedUser} selectedAddress={selectedAddress} onAddressClick={setSelectedAddress} />
+          <AddressInformationPanel userId={selectedUser} selectedAddress={selectedAddress} onAddressClick={handleAddressClick} />
         </Grid>
         <Grid item xs={6}>
           <EventPanel addressId={selectedAddress} selectedEvents={selectedEvents} onEventClick={handleEventClick} />

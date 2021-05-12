@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import ResultsList from './ResultsList'
 import EventCard from './EventCard'
 import { useApi } from '../hooks'
-import { Grid, Card, Typography, CardContent, makeStyles } from '@material-ui/core'
+import { Button, Box, Grid, Card, Typography, CardContent, makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles({
   eventCardContainer: {
@@ -11,6 +11,10 @@ const useStyles = makeStyles({
   },
   eventInfoHeader: {
     paddingBottom: '10px'
+  },
+  compareButton: {
+    backgroundColor: '#528ef6',
+    color: '#ffffff'
   }
 })
 
@@ -41,9 +45,22 @@ const EventPanel = ({ addressId, selectedEvents, onEventClick }) => {
         <Grid container item xs={12}>
           <Card className={classes.eventCardContainer}>
             <CardContent>
-              <Typography variant="h5" className={classes.eventInfoHeader}>
-                Events
-              </Typography>
+              <Box mb="10px">
+                <Grid container>
+                  <Grid item>
+                    <Box mr="20px">
+                      <Typography variant="h5" className={classes.eventInfoHeader}>
+                        Events
+                      </Typography>
+                    </Box>
+                  </Grid>
+                  <Grid item>
+                    <Button variant="contained" color="primary" disabled={selectedEvents.length !== 2}>
+                      Compare
+                    </Button>
+                  </Grid>
+                </Grid>
+              </Box>
               <ResultsList { ...resultsListProps } />
             </CardContent>
           </Card>
